@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Who Designed That? — Design Quiz"
+version = "1.0.0"
+id = "artifacts/design-quiz"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21981
+
+[services.development]
+run = "pnpm --filter @workspace/design-quiz run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/design-quiz", "run", "build" ]
+publicDir = "artifacts/design-quiz/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21981"
+BASE_PATH = "/"
