@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ALL_Q, CAT_NAMES, CAT_COLORS, CAT_VISUAL_BG, type Question } from "@/data/questions";
+import { ALL_Q, CAT_NAMES, CAT_COLORS, type Question } from "@/data/questions";
 
 type GameState = "playing" | "answered" | "end";
 type Filter = "all" | "everyday" | "digital" | "india" | "street" | "body" | "home";
@@ -200,7 +200,6 @@ export default function QuizPage() {
   };
 
   const catColor = q ? CAT_COLORS[q.cat] : CAT_COLORS.everyday;
-  const catVisualBg = q ? CAT_VISUAL_BG[q.cat] : CAT_VISUAL_BG.everyday;
 
   if (!q && gameState !== "end") {
     return (
@@ -265,9 +264,9 @@ export default function QuizPage() {
 
         {/* Header */}
         <header className="quiz-header">
-          <div>
-            <div className="quiz-title">Who Designed That?</div>
-            <div className="quiz-subtitle">Design History Quiz</div>
+          <div className="quiz-header-left">
+            <div className="quiz-title">DesignIQ</div>
+            <div className="quiz-subtitle">Everyday design quiz — who designed the things you use every day, for NID and UCEED students</div>
           </div>
           <div className="header-badges">
             <div className={`score-badge${scoreBump ? " bumped" : ""}`}>
@@ -278,27 +277,41 @@ export default function QuizPage() {
           </div>
         </header>
 
-        {/* Filter chips */}
-        <div className="filter-bar">
-          {FILTERS.map((f) => {
-            const isOn = filter === f.key;
-            const col = f.key !== "all" ? CAT_COLORS[f.key] : null;
-            return (
-              <button
-                key={f.key}
-                className={`filter-chip${isOn ? " active" : ""}`}
-                onClick={() => handleFilter(f.key)}
-                style={isOn && col ? {
-                  background: col.text,
-                  borderColor: col.text,
-                  color: "#fff",
-                  boxShadow: `0 3px 12px ${col.text}55`,
-                } : isOn ? undefined : undefined}
-              >
-                {f.label}
-              </button>
-            );
-          })}
+        {/* Filter chips + inline stats */}
+        <div className="filter-stats-row">
+          <div className="filter-bar">
+            {FILTERS.map((f) => {
+              const isOn = filter === f.key;
+              const col = f.key !== "all" ? CAT_COLORS[f.key] : null;
+              return (
+                <button
+                  key={f.key}
+                  className={`filter-chip${isOn ? " active" : ""}`}
+                  onClick={() => handleFilter(f.key)}
+                  style={isOn && col ? {
+                    background: col.text,
+                    borderColor: col.text,
+                    color: "#fff",
+                    boxShadow: `0 3px 12px ${col.text}55`,
+                  } : undefined}
+                >
+                  {f.label}
+                </button>
+              );
+            })}
+          </div>
+          <div className="inline-stats">
+            {[
+              { label: "Done", value: cur + (gameState === "answered" ? 1 : 0) },
+              { label: "✓", value: score },
+              { label: "Left", value: questions.length - cur - (gameState === "answered" ? 1 : 0) },
+            ].map((s) => (
+              <div key={s.label} className="inline-stat-chip">
+                <span className="inline-stat-num">{s.value}</span>
+                <span className="inline-stat-label">{s.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Progress */}
@@ -337,20 +350,6 @@ export default function QuizPage() {
               >
                 {showHint ? "Hint shown" : "💡 Hint"}
               </button>
-            </div>
-
-            {/* Visual */}
-            <div
-              className="visual-block"
-              style={{ background: catVisualBg }}
-            >
-              <svg
-                width="110"
-                height="110"
-                viewBox="0 0 110 110"
-                xmlns="http://www.w3.org/2000/svg"
-                dangerouslySetInnerHTML={{ __html: q.visual.svg }}
-              />
             </div>
 
             {/* Wow strip */}
@@ -433,19 +432,6 @@ export default function QuizPage() {
           </div>
         </div>
 
-        {/* Mini stats */}
-        <div className="mini-stats">
-          {[
-            { label: "Answered", value: cur + (gameState === "answered" ? 1 : 0) },
-            { label: "Correct", value: score },
-            { label: "Left", value: questions.length - cur - (gameState === "answered" ? 1 : 0) },
-          ].map((s) => (
-            <div key={s.label} className="mini-stat">
-              <div className="mini-stat-value">{s.value}</div>
-              <div className="mini-stat-label">{s.label}</div>
-            </div>
-          ))}
-        </div>
 
       </div>
     </div>

@@ -1,6 +1,6 @@
-# Who Designed That? — Design History Quiz
+# DesignIQ — Design History Quiz
 
-An interactive dark-mode quiz app about the hidden design history of everyday objects, built for NID and UCEED students.
+An interactive quiz app about the hidden design history of everyday objects, built for NID and UCEED students.
 
 ## Run & Operate
 

@@ -125,32 +125,38 @@
 /* ─── Header ─── */
 .quiz-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.quiz-header-left {
+  flex: 1;
+  min-width: 0;
 }
 
 .quiz-title {
-  font-size: clamp(18px, 4vw, 26px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
   animation: gradientShift 5s linear infinite;
-  line-height: 1.1;
+  line-height: 1.05;
+  margin-bottom: 5px;
 }
 
 .quiz-subtitle {
-  font-size: 10px;
-  color: var(--c-text-3);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-top: 2px;
+  font-size: clamp(11px, 1.8vw, 13px);
+  color: var(--c-text-2);
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 480px;
+  opacity: 0.8;
 }
 
 .header-badges {
@@ -190,19 +196,62 @@
   white-space: nowrap;
 }
 
-/* ─── Filter chips ─── */
+/* ─── Filter + Stats combined row ─── */
+.filter-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
 .filter-bar {
+  flex: 1;
+  min-width: 0;
   display: flex;
   gap: 6px;
-  margin-bottom: 16px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
 }
 
 .filter-bar::-webkit-scrollbar {
   display: none;
+}
+
+.inline-stats {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.inline-stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background: #f8f7ff;
+  border: 1.5px solid #e0e7ff;
+  white-space: nowrap;
+  min-width: 44px;
+}
+
+.inline-stat-num {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.inline-stat-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
 }
 
 .filter-chip {
